@@ -21,4 +21,9 @@ public class GenreService {
     public Genre getGenre(int id){
         return genreRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Genre not found"));
     }
+
+    public Genre insertGenre(Genre g){
+        g.setId(0); //Id a 0 para asegurar que se haga insert
+        return genreRepository.save(g);
+    }
 }
