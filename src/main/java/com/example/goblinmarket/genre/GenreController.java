@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.goblinmarket.genre.projections.GenreWithGames;
+import com.example.goblinmarket.genre.projections.GenreWithoutGames;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,12 +27,12 @@ public class GenreController {
     private final GenreService genreService;
 
     @GetMapping
-    public List<Genre> getGenres() {
+    public List<GenreWithoutGames> getGenres() {
         return genreService.getGenres();
     }
 
     @GetMapping("/{id}")
-    public Genre getGenre(@PathVariable int id) {
+    public GenreWithGames getGenre(@PathVariable int id) {
         return genreService.getGenre(id);
     }
 

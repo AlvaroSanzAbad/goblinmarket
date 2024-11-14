@@ -6,6 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.example.goblinmarket.genre.projections.GenreWithGames;
+import com.example.goblinmarket.genre.projections.GenreWithoutGames;
+
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -14,12 +17,12 @@ public class GenreService {
 
     private final GenreRepository genreRepository;
 
-    public List<Genre> getGenres(){
-        return genreRepository.findAll();
+    public List<GenreWithoutGames> getGenres(){
+        return genreRepository.findAllBy();
     }
 
-    public Genre getGenre(int id){
-        return genreRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Genre not found"));
+    public GenreWithGames getGenre(int id){
+        return genreRepository.findGenreById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Genre not found"));
     }
 
     public Genre insertGenre(Genre g){
