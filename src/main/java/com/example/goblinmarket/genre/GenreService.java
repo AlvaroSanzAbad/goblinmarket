@@ -34,4 +34,8 @@ public class GenreService {
         g.setId(id);
         return genreRepository.save(g);
     }
+
+    public void deleteGenre(int id){
+        genreRepository.deleteById(id);
+    }
 }
