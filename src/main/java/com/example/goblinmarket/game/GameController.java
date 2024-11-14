@@ -46,4 +46,9 @@ public class GameController {
         return gameService.updateGame(id, g);
     }
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteGame(@PathVariable int id){
+        gameService.deleteGame(id);;
+    }
 }

@@ -34,5 +34,7 @@ public class GameService {
         return gameRepository.save(g);
     }
 
-
+    public void deleteGame(int id){
+        gameRepository.deleteById(id);
+    }
 }
