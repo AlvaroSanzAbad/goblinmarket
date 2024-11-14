@@ -21,5 +21,10 @@ public class GameService {
         return gameRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Game not found"));
     }
 
+    public Game insertGame(Game g){
+        g.setId(0); //Nos aseguramos que sea insert poniendolo a 0
+        return gameRepository.save(g);
+    }
+
 
 }
