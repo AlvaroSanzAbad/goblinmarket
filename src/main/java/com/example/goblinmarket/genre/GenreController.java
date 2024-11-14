@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 
 @CrossOrigin
@@ -35,5 +37,8 @@ public class GenreController {
         return genreService.insertGenre(g);
     }
     
-    
+    @PutMapping("/{id}")
+    public Genre updateGenre(@PathVariable int id, @RequestBody Genre g) {
+        return genreService.updateGenre(id, g);
+    }
 }

@@ -26,4 +26,12 @@ public class GenreService {
         g.setId(0); //Id a 0 para asegurar que se haga insert
         return genreRepository.save(g);
     }
+
+    public Genre updateGenre(int id, Genre g){
+        if (!genreRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Genre not found");
+        }
+        g.setId(id);
+        return genreRepository.save(g);
+    }
 }
