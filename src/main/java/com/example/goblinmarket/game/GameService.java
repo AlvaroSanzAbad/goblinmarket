@@ -26,5 +26,13 @@ public class GameService {
         return gameRepository.save(g);
     }
 
+    public Game updateGame(int id, Game g){
+        if (!gameRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Game not found");
+        }
+        g.setId(id); //En este caso le pasamos la id para que haga el update
+        return gameRepository.save(g);
+    }
+
 
 }
