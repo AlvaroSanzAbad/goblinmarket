@@ -6,6 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.example.goblinmarket.game.projections.GameWithGenre;
+import com.example.goblinmarket.game.projections.GameWithoutGenre;
+
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -13,12 +16,12 @@ import lombok.RequiredArgsConstructor;
 public class GameService {
     private final GameRepository gameRepository;
 
-    public List<Game> getGames(){
-        return gameRepository.findAll();
+    public List<GameWithoutGenre> getGames(){
+        return gameRepository.findAllBy();
     }
 
-    public Game getGame(int id){
-        return gameRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Game not found"));
+    public GameWithGenre getGame(int id){
+        return gameRepository.findGameById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Game not found"));
     }
 
     public Game insertGame(Game g){

@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.goblinmarket.game.projections.GameWithGenre;
+import com.example.goblinmarket.game.projections.GameWithoutGenre;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,12 +27,12 @@ public class GameController {
     private final GameService gameService;
 
     @GetMapping
-    public List<Game> getGames() {
+    public List<GameWithoutGenre> getGames() {
         return gameService.getGames();
     }
 
     @GetMapping("/{id}")
-    public Game getGame(@PathVariable int id) {
+    public GameWithGenre getGame(@PathVariable int id) {
         return gameService.getGame(id);
     }
 
