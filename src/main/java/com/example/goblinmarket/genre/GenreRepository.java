@@ -1,9 +1,9 @@
-package com.example.goblinmarket.game;
+package com.example.goblinmarket.genre;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface GameRepository extends JpaRepository<Game, Integer>{
+public interface GenreRepository extends JpaRepository<Genre, Integer>{
 
 }

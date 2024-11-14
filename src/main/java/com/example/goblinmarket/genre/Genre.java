@@ -1,4 +1,4 @@
-package com.example.goblinmarket.game;
+package com.example.goblinmarket.genre;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,14 +12,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Game {
+public class Genre {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    private String description;
-    private double price;
-    private String img;
-    private String studio;
-    
 }
