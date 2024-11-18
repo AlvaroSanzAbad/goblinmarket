@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.example.goblinmarket.genre.projections.GenreWithGames;
+import com.example.goblinmarket.genre.dto.GenreDTO;
 import com.example.goblinmarket.genre.projections.GenreWithoutGames;
 
 import lombok.RequiredArgsConstructor;
@@ -21,21 +21,23 @@ public class GenreService {
         return genreRepository.findAllBy();
     }
 
-    public GenreWithGames getGenre(int id){
-        return genreRepository.findGenreById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Genre not found"));
+    public GenreWithoutGames getGenre(int id){
+        return genreRepository.findGenreById(id);
     }
 
-    public Genre insertGenre(Genre g){
-        g.setId(0); //Id a 0 para asegurar que se haga insert
-        return genreRepository.save(g);
+    public GenreWithoutGames insertGenre(GenreDTO genreDTO){
+        Genre genre = genreRepository.save(Genre.fromDTO(genreDTO)); //Hacemos save llamando a fromDTO
+        return genreRepository.findGenreById(genre.getId());
     }
 
-    public Genre updateGenre(int id, Genre g){
+    public GenreWithoutGames updateGenre(int id, GenreDTO genreDTO){
         if (!genreRepository.existsById(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Genre not found");
         }
-        g.setId(id);
-        return genreRepository.save(g);
+        Genre genre = Genre.fromDTO(genreDTO);
+        genre.setId(id);
+        genreRepository.save(genre);
+        return genreRepository.findGenreById(genre.getId());
     }
 
     public void deleteGenre(int id){

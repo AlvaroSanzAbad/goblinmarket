@@ -1,7 +1,5 @@
 package com.example.goblinmarket.genre;
 
-import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,9 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.goblinmarket.genre.projections.GenreWithGames;
-import com.example.goblinmarket.genre.projections.GenreWithoutGames;
+import com.example.goblinmarket.genre.dto.GenreDTO;
+import com.example.goblinmarket.genre.dto.ResponseGenreDTO;
+import com.example.goblinmarket.genre.dto.ResponseGenresDTO;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,24 +27,24 @@ public class GenreController {
     private final GenreService genreService;
 
     @GetMapping
-    public List<GenreWithoutGames> getGenres() {
-        return genreService.getGenres();
+    public ResponseGenresDTO getGenres() {
+        return new ResponseGenresDTO(genreService.getGenres());
     }
 
     @GetMapping("/{id}")
-    public GenreWithGames getGenre(@PathVariable int id) {
-        return genreService.getGenre(id);
+    public ResponseGenreDTO getGenre(@PathVariable int id) {
+        return new ResponseGenreDTO(genreService.getGenre(id));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Genre insertGenre(@RequestBody Genre g) {
-        return genreService.insertGenre(g);
+    public ResponseGenreDTO insertGenre(@RequestBody @Valid GenreDTO g) {
+        return new ResponseGenreDTO(genreService.insertGenre(g));
     }
     
     @PutMapping("/{id}")
-    public Genre updateGenre(@PathVariable int id, @RequestBody Genre g) {
-        return genreService.updateGenre(id, g);
+    public ResponseGenreDTO updateGenre(@PathVariable int id, @RequestBody @Valid GenreDTO g) {
+        return new ResponseGenreDTO(genreService.updateGenre(id, g));
     }
 
     @DeleteMapping("/{id}")

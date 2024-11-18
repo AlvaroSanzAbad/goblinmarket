@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.goblinmarket.game.Game;
+import com.example.goblinmarket.genre.dto.GenreDTO;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -27,4 +28,8 @@ public class Genre {
 
     @OneToMany(mappedBy = "genre", cascade = CascadeType.ALL)
     List<Game> games = new ArrayList<>();
+
+    static Genre fromDTO(GenreDTO genreDTO){
+        return new Genre(0, genreDTO.getName(), null);
+    }
 }
