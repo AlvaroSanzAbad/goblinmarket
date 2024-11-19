@@ -1,11 +1,14 @@
 package com.example.goblinmarket.game.dto;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@JsonPropertyOrder({"id", "name", "description", "price", "img", "studio", "genre"})
 @NoArgsConstructor
 @Data
 public class GameDTO {
@@ -22,5 +25,7 @@ public class GameDTO {
     @NotBlank(message = "Game's studio can not be blank")
     @Size(min = 2, message = "Game's studio must have at least two charactes")
     private String studio;
+    
+    private int genre;
 
 }

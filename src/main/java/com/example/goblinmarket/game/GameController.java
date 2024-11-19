@@ -1,7 +1,5 @@
 package com.example.goblinmarket.game;
 
-import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,7 +13,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.goblinmarket.game.dto.GameDTO;
-import com.example.goblinmarket.game.projections.GameWithGenre;
+import com.example.goblinmarket.game.dto.ResponseGameDTO;
+import com.example.goblinmarket.game.dto.ResponseGamesDTO;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -28,24 +27,24 @@ public class GameController {
     private final GameService gameService;
 
     @GetMapping
-    public List<GameWithGenre> getGames() {
-        return gameService.getGames();
+    public ResponseGamesDTO getGames() {
+        return new ResponseGamesDTO(gameService.getGames());
     }
 
     @GetMapping("/{id}")
-    public GameWithGenre getGame(@PathVariable int id) {
-        return gameService.getGame(id);
+    public ResponseGameDTO getGame(@PathVariable int id) {
+        return new ResponseGameDTO(gameService.getGame(id));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public GameWithGenre insertGame(@RequestBody @Valid GameDTO g) {
-        return gameService.insertGame(g);
+    public ResponseGameDTO insertGame(@RequestBody @Valid GameDTO g) {
+        return new ResponseGameDTO(gameService.insertGame(g));
     }
     
     @PutMapping("/{id}")
-    public GameWithGenre updateGame(@PathVariable int id, @RequestBody @Valid GameDTO g) {
-        return gameService.updateGame(id, g);
+    public ResponseGameDTO updateGame(@PathVariable int id, @RequestBody @Valid GameDTO g) {
+        return new ResponseGameDTO(gameService.updateGame(id, g));
     }
 
     @DeleteMapping("/{id}")

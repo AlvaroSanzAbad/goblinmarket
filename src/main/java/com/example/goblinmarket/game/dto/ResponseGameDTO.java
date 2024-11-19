@@ -1,6 +1,6 @@
 package com.example.goblinmarket.game.dto;
 
-import com.example.goblinmarket.game.projections.GameWithoutGenre;
+import com.example.goblinmarket.game.projections.GameWithGenre;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,5 +8,5 @@ import lombok.Data;
 @AllArgsConstructor
 @Data
 public class ResponseGameDTO {
-    private GameWithoutGenre game;
+    private GameWithGenre game;
 }
