@@ -1,5 +1,6 @@
 package com.example.goblinmarket.game;
 
+import com.example.goblinmarket.game.dto.GameDTO;
 import com.example.goblinmarket.genre.Genre;
 
 import jakarta.persistence.Entity;
@@ -29,5 +30,10 @@ public class Game {
     @ManyToOne
     @JoinColumn(name = "genre")
     private Genre genre;
+
+    static Game fromDTO(GameDTO gameDTO){
+        return new Game(0, gameDTO.getName(), gameDTO.getDescription(), 
+        gameDTO.getPrice(), gameDTO.getImg(), gameDTO.getStudio(), null);
+    }
     
 }

@@ -6,8 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.example.goblinmarket.game.dto.GameDTO;
 import com.example.goblinmarket.game.projections.GameWithGenre;
-import com.example.goblinmarket.game.projections.GameWithoutGenre;
 
 import lombok.RequiredArgsConstructor;
 
@@ -16,25 +16,27 @@ import lombok.RequiredArgsConstructor;
 public class GameService {
     private final GameRepository gameRepository;
 
-    public List<GameWithoutGenre> getGames(){
+    public List<GameWithGenre> getGames(){
         return gameRepository.findAllBy();
     }
 
     public GameWithGenre getGame(int id){
-        return gameRepository.findGameById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Game not found"));
+        return gameRepository.findGameById(id);
     }
 
-    public Game insertGame(Game g){
-        g.setId(0); //Nos aseguramos que sea insert poniendolo a 0
-        return gameRepository.save(g);
+    public GameWithGenre insertGame(GameDTO gameDTO){
+        Game game = gameRepository.save(Game.fromDTO(gameDTO));
+        return gameRepository.findGameById(game.getId());
     }
 
-    public Game updateGame(int id, Game g){
+    public GameWithGenre updateGame(int id, GameDTO gameDTO){
         if (!gameRepository.existsById(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Game not found");
         }
-        g.setId(id); //En este caso le pasamos la id para que haga el update
-        return gameRepository.save(g);
+        Game game = Game.fromDTO(gameDTO);
+        game.setId(id);
+        gameRepository.save(game);
+        return gameRepository.findGameById(game.getId());
     }
 
     public void deleteGame(int id){
