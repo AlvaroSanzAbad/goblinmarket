@@ -8,7 +8,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.example.goblinmarket.game.dto.GameDTO;
 import com.example.goblinmarket.game.projections.GameWithGenre;
-import com.example.goblinmarket.genre.Genre;
 import com.example.goblinmarket.genre.GenreRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -29,7 +28,7 @@ public class GameService {
 
     public GameWithGenre insertGame(GameDTO gameDTO){
         //Comprobar que existe el genero de videojuego que nos han pasado
-        Genre genre = genreRepository.findById(gameDTO.getGenre())
+        genreRepository.findById(gameDTO.getGenre())
         .orElseThrow(() -> new IllegalArgumentException("Game's genre not found"));
 
         Game game = gameRepository.save(Game.fromDTO(gameDTO));
@@ -37,9 +36,15 @@ public class GameService {
     }
 
     public GameWithGenre updateGame(int id, GameDTO gameDTO){
+        //Comprobar que existe el juego pasado
         if (!gameRepository.existsById(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Game not found");
         }
+        
+        //Comprobar que existe el genero de videojuego que nos han pasado
+        genreRepository.findById(gameDTO.getGenre())
+        .orElseThrow(() -> new IllegalArgumentException("Game's genre not found"));
+
         Game game = Game.fromDTO(gameDTO);
         game.setId(id);
         gameRepository.save(game);

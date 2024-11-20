@@ -31,7 +31,7 @@ public class Game {
     @ManyToOne
     @JoinColumn(name = "genre", referencedColumnName = "id")
     private Genre genre;
-
+    
     static Game fromDTO(GameDTO gameDTO){
         Genre genre = new Genre();
         genre.setId(gameDTO.getGenre());

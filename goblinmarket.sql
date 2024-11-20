@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-11-2024 a las 17:56:00
+-- Tiempo de generación: 20-11-2024 a las 18:29:53
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -33,17 +33,21 @@ CREATE TABLE `game` (
   `description` varchar(2000) NOT NULL,
   `price` decimal(8,2) NOT NULL,
   `img` varchar(200) NOT NULL,
-  `studio` varchar(100) NOT NULL
+  `studio` varchar(100) NOT NULL,
+  `genre` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `game`
 --
 
-INSERT INTO `game` (`id`, `name`, `description`, `price`, `img`, `studio`) VALUES
-(1, 'Outer Wilds', 'Named Game of the Year 2019 by Giant Bomb, Polygon, Eurogamer, and The Guardian, Outer Wilds is a critically-acclaimed and award-winning open world mystery about a solar system trapped in an endless time loop.', 22.99, 'NOIMG', 'Mobius Digital'),
-(2, 'Disco Elysium', 'Disco Elysium - The Final Cut is a groundbreaking role playing game. You’re a detective with a unique skill system at your disposal and a whole city to carve your path across. Interrogate unforgettable characters, crack murders or take bribes. Become a hero or an absolute disaster of a human being.', 39.99, 'NOIMG', 'ZA/UM'),
-(3, 'GRIS', 'Gris is a hopeful young girl lost in her own world, dealing with a painful experience in her life. Her journey through sorrow is manifested in her dress, which grants new abilities to better navigate her faded reality.', 14.79, 'NOIMG', 'Nomada Studio');
+INSERT INTO `game` (`id`, `name`, `description`, `price`, `img`, `studio`, `genre`) VALUES
+(1, 'Outer Wilds', 'Named Game of the Year 2019 by Giant Bomb, Polygon, Eurogamer, and The Guardian, Outer Wilds is a critically-acclaimed and award-winning open world mystery about a solar system trapped in an endless time loop.', 22.99, 'NOIMG', 'Mobius Digital', 1),
+(2, 'Disco Elysium', 'Disco Elysium - The Final Cut is a groundbreaking role playing game. You’re a detective with a unique skill system at your disposal and a whole city to carve your path across. Interrogate unforgettable characters, crack murders or take bribes. Become a hero or an absolute disaster of a human being.', 39.99, 'NOIMG', 'ZA/UM', 2),
+(3, 'GRIS', 'Gris is a hopeful young girl lost in her own world, dealing with a painful experience in her life. Her journey through sorrow is manifested in her dress, which grants new abilities to better navigate her faded reality.', 14.79, 'NOIMG', 'Nomada Studio', 1),
+(6, 'XXXX', 'EDITADO', 14.79, 'NOIMG', 'Estudio EditadooooAAAA', 2),
+(7, 'XXX', 'XXXX', 200.00, 'NOIMG', 'no', 1),
+(9, 'XXX', 'XXXX', 200.00, 'NOIMG', 'no', 4);
 
 -- --------------------------------------------------------
 
@@ -64,7 +68,8 @@ INSERT INTO `genre` (`id`, `name`) VALUES
 (1, 'Puzzles'),
 (2, 'RPG'),
 (3, 'Adventure'),
-(4, 'Action');
+(4, 'Action'),
+(5, 'Metroidvanoia');
 
 --
 -- Índices para tablas volcadas
@@ -74,7 +79,8 @@ INSERT INTO `genre` (`id`, `name`) VALUES
 -- Indices de la tabla `game`
 --
 ALTER TABLE `game`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_genre` (`genre`);
 
 --
 -- Indices de la tabla `genre`
@@ -90,13 +96,23 @@ ALTER TABLE `genre`
 -- AUTO_INCREMENT de la tabla `game`
 --
 ALTER TABLE `game`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `genre`
 --
 ALTER TABLE `genre`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `game`
+--
+ALTER TABLE `game`
+  ADD CONSTRAINT `fk_genre` FOREIGN KEY (`genre`) REFERENCES `genre` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
