@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class GameDTO {
 
     @NotBlank(message = "Game's name can not be blank")
-    @Size(min = 2, message = "Game's name must have at least two charactes")
+    @Size(min = 2, message = "Game's name must have at least two characters")
     private String name;
     @NotBlank(message = "Game's description can not be blank")
     private String description;

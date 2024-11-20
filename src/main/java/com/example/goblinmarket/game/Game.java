@@ -35,6 +35,7 @@ public class Game {
     static Game fromDTO(GameDTO gameDTO){
         Genre genre = new Genre();
         genre.setId(gameDTO.getGenre());
+        
         return new Game(0, gameDTO.getName(), gameDTO.getDescription(), 
         gameDTO.getPrice(), gameDTO.getImg(), gameDTO.getStudio(), genre);
     }
