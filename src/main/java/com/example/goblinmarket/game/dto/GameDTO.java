@@ -25,7 +25,7 @@ public class GameDTO {
     @NotBlank(message = "Game's studio can not be blank")
     @Size(min = 2, message = "Game's studio must have at least two charactes")
     private String studio;
-    
+    @Positive(message = "Game's genre must be a positive value")
     private int genre;
 
 }
