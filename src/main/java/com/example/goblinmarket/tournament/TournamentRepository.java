@@ -14,5 +14,5 @@ public interface TournamentRepository extends JpaRepository<Tournament, Integer>
     List<TournamentWithGame> findAllBy();
 
     @Query("SELECT t.id AS id, t.name AS name, t.description AS description, t.date AS date, t.hour AS hour, t.img AS img, t.game.id AS game FROM Tournament t WHERE t.id = :id")
-    TournamentWithGame findGameById(int id);
+    TournamentWithGame findTournamentById(int id);
 }
