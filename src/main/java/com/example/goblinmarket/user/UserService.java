@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.example.goblinmarket.game.projections.GameWithGenre;
+import com.example.goblinmarket.tournament.projections.TournamentWithGame;
 import com.example.goblinmarket.user.dto.UserDTO;
 import com.example.goblinmarket.user.projections.UserWithNothing;
 
@@ -42,5 +44,19 @@ public class UserService {
 
     public void deleteUser(int id){
         userRepository.deleteById(id);
+    }
+
+    public List<TournamentWithGame> getUserTournaments(int id){
+        if (!userRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User's not found");
+        }
+        return userRepository.findTournamentsByUserId(id);
+    }
+
+    public List<GameWithGenre> getUserGames(int id){
+        if (!userRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User's not found");
+        }
+        return userRepository.findGamesByUserId(id);
     }
 }

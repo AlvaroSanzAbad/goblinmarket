@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.goblinmarket.game.dto.ResponseGamesDTO;
+import com.example.goblinmarket.tournament.dto.ResponseTournamentsDTO;
 import com.example.goblinmarket.user.dto.ResponseUserDTO;
 import com.example.goblinmarket.user.dto.ResponseUsersDTO;
 import com.example.goblinmarket.user.dto.UserDTO;
@@ -51,6 +53,16 @@ public class UserController {
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable int id){
         userService.deleteUser(id);
+    }
+
+    @GetMapping("/{id}/tournament")
+    public ResponseTournamentsDTO getUserTournaments(@PathVariable int id) {
+        return new ResponseTournamentsDTO(userService.getUserTournaments(id));
+    }
+
+    @GetMapping("/{id}/game")
+    public ResponseGamesDTO getUserGames(@PathVariable int id) {
+        return new ResponseGamesDTO(userService.getUserGames(id));
     }
 
 }
