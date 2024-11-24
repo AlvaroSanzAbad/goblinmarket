@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.goblinmarket.tournament.dto.ResponseTournamentDTO;
 import com.example.goblinmarket.tournament.dto.ResponseTournamentsDTO;
 import com.example.goblinmarket.tournament.dto.TournamentDTO;
+import com.example.goblinmarket.user.dto.ResponseUsersDTO;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -52,6 +53,11 @@ public class TournamentController {
     @DeleteMapping("{id}")
     public void deleteTournament(@PathVariable int id){
         tournamentService.deleteTournament(id);
+    }
+
+    @GetMapping("/{id}/user")
+    public ResponseUsersDTO getTournamentUsers(@PathVariable int id) {
+        return new ResponseUsersDTO(tournamentService.getTournamentUsers(id));
     }
     
 }

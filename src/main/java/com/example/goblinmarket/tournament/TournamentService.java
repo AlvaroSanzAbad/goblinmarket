@@ -9,6 +9,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.example.goblinmarket.game.GameRepository;
 import com.example.goblinmarket.tournament.dto.TournamentDTO;
 import com.example.goblinmarket.tournament.projections.TournamentWithGame;
+import com.example.goblinmarket.user.projections.UserWithNothing;
 
 import lombok.RequiredArgsConstructor;
 
@@ -51,6 +52,10 @@ public class TournamentService {
 
     public void deleteTournament(int id){
         tournamentRepository.deleteById(id);
+    }
+
+    public List<UserWithNothing> getTournamentUsers(int id){
+        return tournamentRepository.findUserByTournamentId(id);
     }
 
 }
