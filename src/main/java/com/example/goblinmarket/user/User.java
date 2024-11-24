@@ -3,6 +3,7 @@ package com.example.goblinmarket.user;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.example.goblinmarket.game.Game;
 import com.example.goblinmarket.tournament.Tournament;
 import com.example.goblinmarket.user.dto.UserDTO;
 
@@ -38,6 +39,17 @@ public class User {
         CascadeType.MERGE
     })
     @JoinTable(
+        name = "user_games",
+        joinColumns = @JoinColumn(name = "user"),
+        inverseJoinColumns = @JoinColumn(name = "game")
+    )
+    private List<Game> games;
+
+    @ManyToMany(cascade = {
+        CascadeType.PERSIST,
+        CascadeType.MERGE
+    })
+    @JoinTable(
         name = "user_in_tournament",
         joinColumns = @JoinColumn(name = "user"),
         inverseJoinColumns = @JoinColumn(name = "tournament")
@@ -46,6 +58,6 @@ public class User {
 
     static User fromDTO(UserDTO userDTO){
         return new User(0, userDTO.getUsername(), userDTO.getEmail(), userDTO.getPass(),
-        userDTO.getImg(), userDTO.getBirthdate(), null);
+        userDTO.getImg(), userDTO.getBirthdate(), null, null);
     }
 }
