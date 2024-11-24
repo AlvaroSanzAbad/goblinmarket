@@ -2,6 +2,7 @@ package com.example.goblinmarket.user;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,6 +47,10 @@ public class UserController {
     public ResponseUserDTO updateUser(@PathVariable int id, @RequestBody UserDTO userDTO) {
         return new ResponseUserDTO(userService.updateUser(id, userDTO));
     }
-    
+
+    @DeleteMapping("/{id}")
+    public void deleteUser(@PathVariable int id){
+        userService.deleteUser(id);
+    }
 
 }
